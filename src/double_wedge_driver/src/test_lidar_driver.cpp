@@ -5,7 +5,7 @@
 #include <pcl/point_types.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/statistical_outlier_removal.h>
-#include <jp_device_driver/LidarScanBundle.h>
+#include <double_wedge_driver/LidarScanBundle.h>
 #include <iomanip> // Include the <iomanip> library for setprecision
 #include <chrono>
 
@@ -20,15 +20,15 @@ public:
         // 订阅 /lidar_data 主题
         lidar_scan_sub_ = nh_.subscribe("/lidar_data", 10, &LidarScanSubscriber::lidarScanCallback, this);
         // 发布点云 sensor_msgs::PointCloud2
-        cloud_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("/jp_lidar_cloud", 10);
+        cloud_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("/inno_lidar_cloud", 10);
 #ifdef TEST
-        // Subscribe to /jp_lidar_cloud for voxel filtering
-        voxel_filtered_cloud_sub_ = nh_.subscribe("/jp_lidar_cloud", 10, &LidarScanSubscriber::voxelFilterCallback, this);
-        voxel_filtered_cloud_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("/jp_lidar_filtered_cloud", 10);
+        // Subscribe to /inno_lidar_cloud for voxel filtering
+        voxel_filtered_cloud_sub_ = nh_.subscribe("/inno_lidar_cloud", 10, &LidarScanSubscriber::voxelFilterCallback, this);
+        voxel_filtered_cloud_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("/inno_lidar_filtered_cloud", 10);
 #endif
     }
 
-    void lidarScanCallback(const jp_device_driver::LidarScanBundle::ConstPtr& scan_msg) {
+    void lidarScanCallback(const double_wedge_driver::LidarScanBundle::ConstPtr& scan_msg) {
         // 时间戳
         // ROS_INFO("Received a LidarScanBundle at %f", scan_msg->header.stamp.sec + scan_msg->header.stamp.nsec * 1e-9);
         // 解析 LidarScanBundle 消息

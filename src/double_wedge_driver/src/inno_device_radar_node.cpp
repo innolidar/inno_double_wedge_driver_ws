@@ -8,8 +8,8 @@
 #include <serial/serial.h>
 #include <string>
 #include <std_msgs/UInt8.h>
-#include <jp_device_driver/RadarStatus.h>
-#include <jp_device_driver/RadarMsg.h>
+#include <double_wedge_driver/RadarStatus.h>
+#include <double_wedge_driver/RadarMsg.h>
 
 // 帧信息宏定义
 const uint16_t Frame_Header = 0xaa55;
@@ -43,8 +43,8 @@ ros::Publisher radar_msg_pub;
 ros::Timer checktimer;
 ros::Time last_data_time;
 
-jp_device_driver::RadarStatus RadarStatusMsg;
-jp_device_driver::RadarMsg  RadarMsg;
+double_wedge_driver::RadarStatus RadarStatusMsg;
+double_wedge_driver::RadarMsg  RadarMsg;
 // dump data
 void printData(const uint8_t *data, size_t length) {
   // 检查data是否为空指针
@@ -389,15 +389,15 @@ void timerCallback(const ros::TimerEvent&)
 }
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "jp_device_driver_radar");
+  ros::init(argc, argv, "double_wedge_driver_radar");
   ros::NodeHandle nh;
   ros::NodeHandle nhPrivate = ros::NodeHandle("~");
 
   // 初始化ROS发布者
   radar_pub = nh.advertise<sensor_msgs::PointCloud2>("/radar_data", 5);
   checktimer = nh.createTimer(ros::Duration(0.5), timerCallback); // 每0.5秒检查一次
-  // radar_status_pub = nh.advertise<jp_device_driver::RadarStatus>("/radar_status", 5);
-  radar_msg_pub = nh.advertise<jp_device_driver::RadarMsg>("/radar_msg", 5);
+  // radar_status_pub = nh.advertise<double_wedge_driver::RadarStatus>("/radar_status", 5);
+  radar_msg_pub = nh.advertise<double_wedge_driver::RadarMsg>("/radar_msg", 5);
   std::string serial_port;
   int baud_rate;
   double blind_area;

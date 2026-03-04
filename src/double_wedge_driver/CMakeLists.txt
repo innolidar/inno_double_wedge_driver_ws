@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(jp_device_driver)
+project(double_wedge_driver)
 
 # 设置是否开启调试模式
 option(DEBUG "Enable debug mode" ON)#ON 开启调试模式, OFF 关闭调试模式
@@ -152,8 +152,8 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_lidar src/jp_device_lidar_node.cpp)
-add_executable(${PROJECT_NAME}_radar src/jp_device_radar_node.cpp)
+add_executable(${PROJECT_NAME}_lidar src/inno_device_lidar_node.cpp)
+add_executable(${PROJECT_NAME}_radar src/inno_device_radar_node.cpp)
 add_executable(${PROJECT_NAME}_test_lidar src/test_lidar_driver.cpp)
 
 ## Rename C++ executable without prefix

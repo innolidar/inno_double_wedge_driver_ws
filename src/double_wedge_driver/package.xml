@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>jp_device_driver</name>
+  <name>double_wedge_driver</name>
   <version>0.0.0</version>
-  <description>The jp_lidar_driver package</description>
+  <description>The double_wedge_lidar_driver package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

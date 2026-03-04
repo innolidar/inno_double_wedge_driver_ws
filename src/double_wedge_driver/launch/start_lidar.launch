@@ -1,0 +1,5 @@
+<launch>
+    <!-- 激光雷达 -->
+    <node pkg="double_wedge_driver" type="double_wedge_driver_lidar" name="double_wedge_driver_lidar" output="screen" required="true"/>
+
+</launch>

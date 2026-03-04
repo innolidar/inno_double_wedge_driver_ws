@@ -9,10 +9,10 @@
 #include <pcl/point_types.h>
 #include <iomanip> // 必须包含这个头文件来设置输出格式
 #include <signal.h>
-#include <jp_device_driver/LidarScanBundle.h>
-#include "jp_device_driver/CustomMsg.h"
-#include "jp_device_driver/CustomPoint.h"
-#include "jp_device_driver/LidarStatus.h"
+#include <double_wedge_driver/LidarScanBundle.h>
+#include "double_wedge_driver/CustomMsg.h"
+#include "double_wedge_driver/CustomPoint.h"
+#include "double_wedge_driver/LidarStatus.h"
 #include <termios.h>   // for keyboard input (调试模式)
 #include <unistd.h>    // for keyboard input (调试模式)
 #include <fcntl.h>     // for keyboard input (调试模式)
@@ -172,9 +172,9 @@ ros::Publisher livox_status_pub;
 int counter = 0;
 int count_xx = 0;
 size_t clouds_received_ = 0;
-jp_device_driver::LidarScanBundle bundle_;
-jp_device_driver::CustomMsg livox_msg;
-jp_device_driver::LidarStatus livox_status_msg;
+double_wedge_driver::LidarScanBundle bundle_;
+double_wedge_driver::CustomMsg livox_msg;
+double_wedge_driver::LidarStatus livox_status_msg;
 bool sync_flag = false;
 // 定义合理的时间范围（防止数据越界）
 const double MIN_TIMESTAMP = 0; // Unix时间起点 1970-01-01 00:00:00 UTC
@@ -464,7 +464,7 @@ void processUdpPacket(const std::vector<uint8_t> &packet)
         lidar_cloud.points.push_back(point);
 
         // 兼容 livox
-        jp_device_driver::CustomPoint custom_point;
+        double_wedge_driver::CustomPoint custom_point;
         #if INSTALL_DIRECTION == 2  //- 倒立安装
         custom_point.x = z;
         custom_point.y = x;
@@ -676,7 +676,7 @@ void Sigint_handler(int signum)
 int main(int argc, char **argv)
 {
     // ROS节点初始化
-    ros::init(argc, argv, "jp_device_driver_lidar");
+    ros::init(argc, argv, "double_wedge_driver_lidar");
     ros::NodeHandle nh;
 
     signal(SIGINT, Sigint_handler);
@@ -686,9 +686,9 @@ int main(int argc, char **argv)
     bundle_.clouds.resize(cache_packet_count); // 确保我们有足够的空间
 
     // 初始化ROS发布者
-    livox_status_pub = nh.advertise<jp_device_driver::LidarStatus>("/livox_status", 5);
-    lidar_pub = nh.advertise<jp_device_driver::LidarScanBundle>("/lidar_data", 5);
-    livox_pub = nh.advertise<jp_device_driver::CustomMsg>("/livox_data", 5);
+    livox_status_pub = nh.advertise<double_wedge_driver::LidarStatus>("/livox_status", 5);
+    lidar_pub = nh.advertise<double_wedge_driver::LidarScanBundle>("/lidar_data", 5);
+    livox_pub = nh.advertise<double_wedge_driver::CustomMsg>("/livox_data", 5);
 
     // 异步接收数据
     udp_socket.async_receive_from(boost::asio::buffer(data), sender_endpoint,

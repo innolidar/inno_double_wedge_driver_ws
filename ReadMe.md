@@ -17,11 +17,13 @@ ROS1:
 
 设置编译方法为 CATKIN
 git clone https://github.com/innolidar/inno_double_wedge_driver_ws.git
-
 cd inno_double_wedge_driver
-
 catkin_make
 
+## 启动方式
+roslaunch double_wedge_driver start_lidar.launch
+roslaunch double_wedge_driver start_radar.launch
+roslaunch double_wedge_driver test_lidar.launch
 ## 激光雷达注意事项
 雷达IP：192.168.0.X
 

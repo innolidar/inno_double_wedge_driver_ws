@@ -17,7 +17,7 @@ ROS1:
 
 设置编译方法为 CATKIN
     git clone https://github.com/innolidar/inno_double_wedge_driver_ws.git
-    d inno_double_wedge_driver
+    cd inno_double_wedge_driver
     catkin_make
 
 ## 启动方式
